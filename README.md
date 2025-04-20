@@ -1,1 +1,1 @@
-# emirdilekci.com
+A placeholder website for emirdilekci.com.
