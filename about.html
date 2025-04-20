@@ -4,135 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About</title>
-  <style>
-    html {
-      background: #111;
-      transition: background 0.3s;
-    }
-    @media (prefers-color-scheme: light) {
-      html {
-        background: #eee;
-      }
-    }
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      color: white;
-      overflow: hidden;
-      transition: color 0.3s, opacity 0.5s;
-      position: relative;
-      z-index: 1;
-      opacity: 0;
-      animation: fadeIn 0.8s ease-in-out forwards;
-    }
-    @media (prefers-color-scheme: light) {
-      body {
-        color: black;
-      }
-    }
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-    /* Background Canvas */
-    #bgCanvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-    /* Fade In Animation */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    /* Fade Out Animation */
-    @keyframes fadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="nonindex.css">
 </head>
 <body>
   <canvas id="bgCanvas"></canvas>
   
   <h1>About</h1>
-  <p>This is the about page. Here you can add information about yourself or your site.</p>
+  <p>This is just a placeholder text, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi arcu, interdum at cursus mollis, condimentum condimentum orci. Sed molestie pellentesque quam id convallis. Duis facilisis pharetra nulla nec dictum. Nunc viverra pellentesque molestie. Aliquam eu orci a mauris efficitur euismod vitae eu sem. Mauris quis convallis mauris. Donec posuere semper erat, eget cursus tellus rhoncus et. Donec non sem ac nisi eleifend ornare sed ac erat. Aenean egestas ex quis neque maximus, non pharetra sem convallis. Quisque malesuada sagittis turpis. Ut in elit non est accumsan consectetur. Etiam convallis mattis tellus, tristique suscipit enim maximus sit amet. Donec sit amet elit ante. Suspendisse maximus scelerisque leo. In hac habitasse platea dictumst.</p>
   <p><a href="index.html" id="backLink">Back to Home</a></p>
 
-  <script>
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-
-    function resize() {
-      const dpr = window.devicePixelRatio || 1;
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
-      ctx.resetTransform();
-      ctx.scale(dpr, dpr);
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    let offset = 0;
-    const period = 2 * Math.PI / 0.05;
-
-    function drawBackground() {
-      ctx.clearRect(0, 0, width, height);
-      const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
-      ctx.strokeStyle = isLightMode ? 'rgba(0, 0, 0, 0.1)' : 'rgba(200, 200, 200, 0.1)';
-      ctx.lineWidth = 1;
-
-      const spacing = 50;
-      const effectiveOffset = offset % period;
-
-      for (let x = 0; x <= width; x += spacing) {
-        ctx.beginPath();
-        for (let y = 0; y <= height; y += 10) {
-          const wave = Math.sin((y + effectiveOffset) * 0.05 + x * 0.1) * 5;
-          if (y === 0) {
-            ctx.moveTo(x + wave, y);
-          } else {
-            ctx.lineTo(x + wave, y);
-          }
-        }
-        ctx.stroke();
-      }
-
-      for (let y = 0; y <= height; y += spacing) {
-        ctx.beginPath();
-        for (let x = 0; x <= width; x += 10) {
-          const wave = Math.sin((x + effectiveOffset) * 0.05 + y * 0.1) * 5;
-          if (x === 0) {
-            ctx.moveTo(x, y + wave);
-          } else {
-            ctx.lineTo(x, y + wave);
-          }
-        }
-        ctx.stroke();
-      }
-
-      offset += 0.2;
-      requestAnimationFrame(drawBackground);
-    }
-    drawBackground();
-
-    // Fade-out effect when navigating away
-    document.getElementById('backLink').addEventListener('click', function(event) {
-      event.preventDefault();
-      document.body.style.animation = 'fadeOut 0.5s ease-in-out forwards';
-      setTimeout(() => {
-        window.location.href = this.href;
-      }, 500);
-    });
-  </script>
+  <script src="bg.js"></script>
 </body>
 </html>
